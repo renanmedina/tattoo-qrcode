@@ -55,7 +55,7 @@ defmodule QrcodeRouting do
   end
 
   defp select_service(enabled_services) do
-    case [is_round_robin_enabled?, round_robin_algorithm] do
+    case [is_round_robin_enabled?(), round_robin_algorithm()] do
       [is_enabled, algorithm] when is_enabled == true -> round_robin_service(enabled_services, algorithm)
       [is_enabled, _] when is_enabled == false -> randomize_service(enabled_services)
     end

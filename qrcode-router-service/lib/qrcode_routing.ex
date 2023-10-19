@@ -1,3 +1,9 @@
+defmodule QrcodeRouting.AvailableService do
+  @derive Jason.Encoder
+  @enforce_keys [:kind, :url]
+  defstruct [:kind, :url, redirects_count: 0]
+end
+
 defmodule QrcodeRouting do
   @moduledoc """
   QrcodeRouterService keeps the contexts that define your domain
@@ -6,36 +12,38 @@ defmodule QrcodeRouting do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
+  alias QrcodeRouting.AvailableService
+
   @enabled_services [
-    %{
-      :kind => "music_and_playlists",
-      :url => "https://open.spotify.com",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "music_and_playlists",
+      url: "https://open.spotify.com",
+      redirects_count: 0
     },
-    %{
-      :kind => "websites",
-      :url => "https://gohorse.com.br/extreme-go-horse-xgh/",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "websites",
+      url: "https://gohorse.com.br/extreme-go-horse-xgh/",
+      redirects_count:  0
     },
-    %{
-      :kind => "status",
-      :url => "https://qrcode-tattoo-services.silvamedina.com.br/status",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "status",
+      url: "https://qrcode-tattoo-services.silvamedina.com.br/status",
+      redirects_count: 0
     },
-    %{
-      :kind => "jokes",
-      :url => "https://qrcode-tattoo-services.silvamedina.com.br/jokes",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "jokes",
+      url: "https://qrcode-tattoo-services.silvamedina.com.br/jokes",
+      redirects_count: 0
     },
-    %{
-      :kind => "quotes",
-      :url => "https://qrcode-tattoo-services.silvamedina.com.br/quotes",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "quotes",
+      url: "https://qrcode-tattoo-services.silvamedina.com.br/quotes",
+      redirects_count: 0
     },
-    %{
-      :kind => "memes",
-      :url => "https://qrcode-tattoo-services.silvamedina.com.br/memes",
-      :redirects_count => 0
+    %AvailableService{
+      kind: "memes",
+      url: "https://qrcode-tattoo-services.silvamedina.com.br/memes",
+      redirects_count: 0
     }
   ]
 

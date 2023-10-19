@@ -15,7 +15,7 @@ defmodule QrcodeRouterServiceWeb.Router do
   end
 
   scope "/", QrcodeRouterServiceWeb do
-    pipe_through :browser
+    pipe_through :api
 
     get "/", ServiceRoutingController, :index
   end

@@ -6,10 +6,23 @@ jobs:
   defaults:
     run:
       working-directory: ${{ github.workspace }}/qrcode-router-service
+  services:
+    postgres:
+      image: postgis/postgis:11-3.3
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: qrcode-router-service-test-db
+      ports:
+        - 5432:5432
+      # needed because the postgres container does not provide a healthcheck
+      options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
   steps:
     - uses: actions/checkout@v2
     - name: Update Repositories && Install libs
       run: sudo apt-get update && sudo apt install libncurses5 erlang-xmerl
+    - name: Setup Database
+      run:
     - name: Set up Elixir
       uses: actions/setup-elixir@v1
       with:

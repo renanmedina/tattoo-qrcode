@@ -24,7 +24,7 @@ jobs:
     - name: Set up Elixir
       uses: actions/setup-elixir@v1
       with:
-        otp-version: '24.0'
+        otp-version: '26.1.2'
         elixir-version: '1.14.0'
         experimental-otp: true
     - name: Install Dependencies

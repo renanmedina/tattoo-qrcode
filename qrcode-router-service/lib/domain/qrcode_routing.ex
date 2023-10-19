@@ -81,7 +81,7 @@ defmodule QrcodeRouting do
       :even_balance_algorithm ->
         services_list |> List.first(services_list)
       _ ->
-        nil
+        services_list |> List.first(services_list)
     end
   end
 

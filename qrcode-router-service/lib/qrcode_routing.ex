@@ -47,7 +47,7 @@ defmodule QrcodeRouting do
     }
   ]
 
-  def route_service() do
+  def route_service!() do
     enabled_services = get_enabled_services()
     destination_service = select_service(enabled_services)
     update_service_statistics!(destination_service)

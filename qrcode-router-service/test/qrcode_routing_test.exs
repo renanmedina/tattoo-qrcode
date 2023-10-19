@@ -7,12 +7,12 @@ defmodule QrcodeRoutingTest do
     end
 
     test "returns randomly service from enabled list" do
-      urls_extractor = fn service -> service[:url] end
+      urls_extractor = fn service -> service.url end
       available_services = QrcodeRouting.get_enabled_services |> Enum.map(urls_extractor)
-      destination1 = QrcodeRouting.route_service
-      destination2 = QrcodeRouting.route_service
-      assert destination1[:url] in available_services
-      assert destination2[:url] in available_services
+      destination1 = QrcodeRouting.route_service!
+      destination2 = QrcodeRouting.route_service!
+      assert destination1.url in available_services
+      assert destination2.url in available_services
       refute destination1 == destination2
     end
   end

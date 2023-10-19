@@ -2,7 +2,7 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
   use QrcodeRouterServiceWeb, :controller
 
   def index(conn, _params) do
-    destination_service = QrcodeRouting.route_service()
+    destination_service = QrcodeRouting.route_service!()
     # redirect(conn, external: destination_service.url)
     render(conn, :index, service: destination_service)
   end

@@ -17,7 +17,7 @@ defmodule QrcodeRouterServiceWeb.Router do
   scope "/", QrcodeRouterServiceWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", ServiceRoutingController, :index
   end
 
   # Other scopes may use custom stacks.

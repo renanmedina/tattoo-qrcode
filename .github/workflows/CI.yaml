@@ -21,8 +21,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Update Repositories && Install libs
       run: sudo apt-get update && sudo apt install libncurses5 erlang-xmerl
-    - name: Setup Database
-      run:
     - name: Set up Elixir
       uses: actions/setup-elixir@v1
       with:

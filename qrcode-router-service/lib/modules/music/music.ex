@@ -1,0 +1,2 @@
+defmodule Music do
+end

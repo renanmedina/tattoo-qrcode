@@ -1,4 +1,4 @@
-defmodule QrcodeRouting.ChooserAlgorithm do
+defmodule ChooserAlgorithm do
 
   @algorithms [:random, :even_balance_round_robin]
 

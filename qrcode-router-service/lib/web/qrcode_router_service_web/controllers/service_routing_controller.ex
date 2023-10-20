@@ -1,10 +1,15 @@
 defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
   use QrcodeRouterServiceWeb, :controller
+  alias ServicePicker.Entity.AvailableService
 
-  def index(conn, _params) do
-    destination_service = QrcodeRouting.get_enabled_services
-      |> QrcodeRouting.pick_service!()
-    redirect(conn, external: destination_service.url)
+  def index(conn, params) do
+    destination_service = AvailableService.get_enableds
+      |> ServicePicker.pick_service!()
+
+    case params["display"] do
+      "1" -> render(conn, :index, service: destination_service)
+      _ -> redirect(conn, external: destination_service.url)
+    end
   end
 
   def show(conn, params) do
@@ -16,7 +21,12 @@ end
 ## Handles ServiceRoutingJson response type
 defmodule QrcodeRouterServiceWeb.ServiceRoutingJSON do
   def index(%{service: service_item}) do
-    Map.from_struct(service_item)
+    %{
+      kind: service_item.kind,
+      url: service_item.url,
+      redirects_count: service_item.redirects_count,
+      enabled: service_item.enabled
+    }
   end
 
   def index(%{service_type: service}) do

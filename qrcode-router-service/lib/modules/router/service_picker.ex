@@ -14,8 +14,12 @@ defmodule ServicePicker do
 
   def pick_service!(enabled_services \\ @enabled_services, algorithm \\ :random) do
     destination_service = ChooserAlgorithm.choose_one(enabled_services, algorithm)
-    update_service_statistics!(destination_service)
-    destination_service
+    case destination_service do
+      nil -> nil
+      %{kind: k} when is_bitstring(k) ->
+        update_service_statistics!(destination_service)
+        destination_service
+    end
   end
 
   defp update_service_statistics!(service) do

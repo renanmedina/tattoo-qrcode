@@ -18,12 +18,17 @@ defmodule Music.SpotifyClient do
 
   defp make_request(path, params, access_token), do: HTTPoison.get("#{build_api_url(path)}?#{URI.encode_query(params)}", build_headers(access_token))
   defp make_request(path, access_token), do: HTTPoison.get(build_api_url(path), build_headers(access_token))
+
   defp parse_response({:ok, %HTTPoison.Response{body: body_data, status_code: 200}}), do: body_data |> Jason.decode!
-  defp parse_response(_), do: :error
+  # handle expired token
+  defp parse_response({:ok, %HTTPoison.Response{status_code: 401, body: body_data}}) do
+    data = body_data |> Jason.decode!
+    raise Music.SpotifyClient.TokenExpiredException, message: data["error"]["message"]
+  end
 
   defp build_headers(access_token) do
     %{
-      "Authorization" => "#{access_token.token_type} #{access_token.access_token}"
+      "Authorization" => "Bearer #{access_token}"
     }
   end
 
@@ -86,19 +91,27 @@ defmodule Music.SpotifyAuth do
   def get_access_token(auth_code) do
     request_params = %{"code" => auth_code, "redirect_uri" => redirect_uri(), "grant_type" => "authorization_code"}
       |> URI.encode_query
+    response = HTTPoison.post(@token_url, request_params, build_headers())
+    response |> parse_response
+  end
 
+  def refresh_token(token) do
+    request_params = %{"refresh_token" => token, "grant_type" => "refresh_token"} |> URI.encode_query
+    response = HTTPoison.post(@token_url, request_params, build_headers())
+    response |> parse_response
+  end
+
+  defp build_headers() do
     password = get_client_auth_password()
-    headers = %{
+    %{
       "Authorization" => "Basic #{password}",
       "Content-Type" => "application/x-www-form-urlencoded"
     }
-    response = HTTPoison.post(@token_url, request_params, headers)
-    response |> parse_response
   end
 
   defp parse_response({:ok, %HTTPoison.Response{body: response_data, status_code: 200}}) do
     response_data |> Jason.decode!
   end
 
-  defp parse_response(_), do: :error
+  # defp parse_response(_), do: :error
 end

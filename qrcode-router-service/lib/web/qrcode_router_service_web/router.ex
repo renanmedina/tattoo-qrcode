@@ -23,7 +23,7 @@ defmodule QrcodeRouterServiceWeb.Router do
     get "/oauth/callback/:service_name", OAuth.CallbackController, :index
   end
 
-  scope "api/management", QrcodeRouterServiceWeb.Management do
+  scope "/api/management", QrcodeRouterServiceWeb.Management do
     pipe_through :api
 
     get "/available_urls", AvailableUrlsController, :index

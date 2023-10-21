@@ -19,7 +19,7 @@ defmodule QrcodeRouterService.MixProject do
   def application do
     [
       mod: {QrcodeRouterService.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :quantum]
     ]
   end
 
@@ -51,7 +51,8 @@ defmodule QrcodeRouterService.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:httpoison, "~> 2.1.0"}
+      {:httpoison, "~> 2.1.0"},
+      {:quantum, ">= 1.9.1"} # cronjob lib
     ]
   end
 

@@ -1,10 +1,6 @@
 defmodule ServicePicker do
   @moduledoc """
-  QrcodeRouterService keeps the contexts that define your domain
-  and business logic.
-
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
+   Module for selecting a service to be routed to using an algorithm
   """
   alias QrcodeRouterService.Repo
   alias ServicePicker.AvailableService

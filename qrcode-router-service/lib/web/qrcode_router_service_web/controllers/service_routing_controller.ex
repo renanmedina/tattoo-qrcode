@@ -9,7 +9,7 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
     case [destination_service, params["display"]] do
       [service, _] when service == nil -> render(conn, :index, service: service)
       [service, should_display] when should_display in ["1", 1] -> render(conn, :index, service: service)
-      [service, _] -> redirect(conn, external: destination_service.url)
+      [service, _] -> redirect(conn, external: service.url)
     end
   end
 

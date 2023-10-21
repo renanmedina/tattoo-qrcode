@@ -4,10 +4,6 @@ defmodule Music.SpotifyClient do
 
   @api_url "https://api.spotify.com/v1/me"
 
-  def get_playlists(client_token) do
-
-  end
-
   def get_recent_played_songs(access_token) do
     response = make_request("/player/recently-played", access_token)
     response |> parse_response |> pluck_items |> Enum.map(&(RecentlyPlayedSong.from_map(&1)))
@@ -15,11 +11,7 @@ defmodule Music.SpotifyClient do
 
   defp pluck_items(response), do: response["items"]
 
-  defp make_recent_songs(response_json) do
-    response_json
-  end
-
-  # defp make_request(path, params, access_token), do: HTTPoison.get("#{build_api_url(path)}?#{URI.encode_query(params)}", build_headers(access_token))
+  defp make_request(path, params, access_token), do: HTTPoison.get("#{build_api_url(path)}?#{URI.encode_query(params)}", build_headers(access_token))
   defp make_request(path, access_token), do: HTTPoison.get(build_api_url(path), build_headers(access_token))
   defp parse_response({:ok, %HTTPoison.Response{body: body_data, status_code: 200}}), do: body_data |> Jason.decode!
   defp parse_response(_), do: :error

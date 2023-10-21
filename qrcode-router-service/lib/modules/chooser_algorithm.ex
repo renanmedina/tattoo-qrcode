@@ -7,5 +7,5 @@ defmodule ChooserAlgorithm do
     Enum.at(list, rand_index)
   end
 
-  def choose_one(list, algorithm \\ :random) when algorithm == :random, do: pick_random(list)
+  def choose_one(list, algorithm \\ @algorithms[0]) when algorithm == :random, do: pick_random(list)
 end

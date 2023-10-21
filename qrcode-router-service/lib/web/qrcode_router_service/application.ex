@@ -17,7 +17,8 @@ defmodule QrcodeRouterService.Application do
       # Start a worker by calling: QrcodeRouterService.Worker.start_link(arg)
       # {QrcodeRouterService.Worker, arg},
       # Start to serve requests, typically the last entry
-      QrcodeRouterServiceWeb.Endpoint
+      QrcodeRouterServiceWeb.Endpoint,
+      QrcodeRouterService.TaskScheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -52,7 +52,7 @@ defmodule QrcodeRouterService.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 2.1.0"},
-      {:quantum, ">= 1.9.1"} # cronjob lib
+      {:quantum, "~> 3.0"} # cronjob lib
     ]
   end
 

@@ -65,5 +65,5 @@ config :phoenix, :json_library, Jason
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
 
-## Import cron schedules
-import_config "task_schedulings.exs"
+# Import tasks configs
+import_config "tasks.exs"

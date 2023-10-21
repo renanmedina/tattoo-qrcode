@@ -12,7 +12,7 @@ defmodule ServicePicker do
 
   import Ecto.Changeset
 
-  def pick_service!(enabled_services \\ @enabled_services, algorithm \\ :random) do
+  def pick_service!(enabled_services \\ [], algorithm \\ :random) do
     destination_service = ChooserAlgorithm.choose_one(enabled_services, algorithm)
     case destination_service do
       nil -> nil

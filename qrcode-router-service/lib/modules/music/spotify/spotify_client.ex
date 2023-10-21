@@ -87,11 +87,10 @@ defmodule Music.SpotifyAuth do
   end
 
   def get_access_token(auth_code) do
-    request_params = %{"code" => auth_code, "redirect_uri" => @redirect_uri, "grant_type" => "authorization_code"}
+    request_params = %{"code" => auth_code, "redirect_uri" => redirect_uri(), "grant_type" => "authorization_code"}
       |> URI.encode_query
 
     password = get_client_auth_password()
-    password |> IO.puts
     headers = %{
       "Authorization" => "Basic #{password}",
       "Content-Type" => "application/x-www-form-urlencoded"

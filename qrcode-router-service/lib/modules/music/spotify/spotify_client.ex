@@ -59,20 +59,21 @@ defmodule Music.SpotifyAuth do
   @token_url "https://accounts.spotify.com/api/token"
   @scopes "user-read-private user-read-email user-top-read user-library-read user-read-recently-played"
 
-  defp config() do
-    Application.fetch_env!(:qrcode_router_service, :spotify_client)
+  defp config_value(key) do
+    config = Application.fetch_env!(:qrcode_router_service, :spotify_client)
+    config[key]
   end
 
   defp client_id() do
-    config()[:client_id]
+    config_value(:client_id)
   end
 
   defp client_secret() do
-    config()[:client_secret]
+    config_value(:client_secret)
   end
 
   defp redirect_uri() do
-    config()[:redirect_uri]
+    config_value(:redirect_uri)
   end
 
   def get_authorize_url() do

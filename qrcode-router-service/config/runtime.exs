@@ -20,12 +20,6 @@ if System.get_env("PHX_SERVER") do
   config :qrcode_router_service, QrcodeRouterServiceWeb.Endpoint, server: true
 end
 
-config :qrcode_router_service, :spotify_client, %{
-  client_id: System.get_env("SPOTIFY_CLIENT_ID"),
-  client_secret: System.get_env("SPOTIFY_CLIENT_SECRET"),
-  redirect_uri: System.get_env("SPOTIFY_OAUTH_REDIRECT_URI") || "http://localhost:4000/oauth/callback/spotify"
-}
-
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
@@ -120,4 +114,10 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  config :qrcode_router_service, :spotify_client, %{
+    client_id: System.get_env("SPOTIFY_CLIENT_ID"),
+    client_secret: System.get_env("SPOTIFY_CLIENT_SECRET"),
+    redirect_uri: System.get_env("SPOTIFY_OAUTH_REDIRECT_URI") || "http://localhost:4000/oauth/callback/spotify"
+  }
 end

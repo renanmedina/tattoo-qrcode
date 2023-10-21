@@ -27,7 +27,7 @@ defmodule Music.Importing do
     try do
       api_results = SpotifyClient.get_playlists(access_token)
       # map results playlists urls from api and save records in database that are missing
-      save_missing_urls(api_results, "playlists")
+      save_missing_urls(api_results, "playlist")
     rescue
       Music.SpotifyClient.TokenExpiredException ->
         refresh_spotify_token(refresh_token)

@@ -4,7 +4,7 @@ services_seeds = [
   %ServicePicker.Entity.AvailableService{
     kind: "music_and_playlists",
     name: "Música & Playlists",
-    url: "https://tattoo-qrcode.renanmedina.online/music_and_playlists",
+    url: "http://localhost:4000/music_and_playlists",
     enabled: true,
     is_internal: true,
     redirects_count: 0
@@ -12,7 +12,7 @@ services_seeds = [
   %ServicePicker.Entity.AvailableService{
     kind: "websites",
     name: "Websites",
-    url: "https://tattoo-qrcode.renanmedina.online/websites",
+    url: "http://localhost:4000/websites",
     enabled: true,
     is_internal: true,
     redirects_count:  0
@@ -20,7 +20,7 @@ services_seeds = [
   %ServicePicker.Entity.AvailableService{
     kind: "memes",
     name: "Memes",
-    url: "https://tattoo-qrcode.renanmedina.online/memes",
+    url: "http://localhost:4000/memes",
     enabled: true,
     is_internal: true,
     redirects_count: 0
@@ -28,7 +28,7 @@ services_seeds = [
   %ServicePicker.Entity.AvailableService{
     kind: "personal_facts",
     name: "Curiosidades Pessoais",
-    url: "https://tattoo-qrcode.renanmedina.online/personal_facts",
+    url: "http://localhost:4000/personal_facts",
     enabled: true,
     is_internal: true,
     redirects_count: 0

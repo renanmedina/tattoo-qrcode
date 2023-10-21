@@ -11,5 +11,5 @@
 # and so on) as they will fail if something goes wrong.
 
 Code.require_file("./priv/repo/seeds/available_services.exs")
-Code.require_file("./priv/repo/seeds/available_medias.exs")
+Code.require_file("./priv/repo/seeds/available_urls.exs")
 Code.require_file("./priv/repo/seeds/default_settings.exs")

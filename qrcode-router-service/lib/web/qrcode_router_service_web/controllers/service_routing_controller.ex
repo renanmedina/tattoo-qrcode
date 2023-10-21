@@ -14,9 +14,18 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
   end
 
   def show(conn, params) do
-    service_kind = params["service_kind"]
-    render(conn, :show, %{service_type: service_kind})
+    try do
+      service_kind = params["service_kind"]
+      redirect_url = get_redirect_url(service_kind)
+      redirect(conn, external: redirect_url)
+    rescue
+      e in [Music.MusicUrlChooserException, Music.MusicUrlNotAvailableException]->
+        render(conn, :show, %{status: 404, message: e.message})
+      e -> render(conn, :show, %{status: 500, message: e.message})
+    end
   end
+
+  defp get_redirect_url("music_and_playlists"), do:  MusicChooser.pick_one_url!
 end
 
 ## Handles ServiceRoutingJson response type
@@ -32,7 +41,10 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingJSON do
     }
   end
 
-  def show(%{service_type: service}) do
-    %{service_type: service}
+  def show(%{status: status, message: msg}) do
+    %{
+      status: status,
+      message: msg
+    }
   end
 end

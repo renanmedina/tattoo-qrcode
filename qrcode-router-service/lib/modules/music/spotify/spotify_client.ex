@@ -64,15 +64,15 @@ defmodule Music.SpotifyAuth do
   end
 
   defp client_id() do
-    config[:client_id]
+    config()[:client_id]
   end
 
   defp client_secret() do
-    config[:client_secret]
+    config()[:client_secret]
   end
 
   defp redirect_uri() do
-    config[:redirect_uri]
+    config()[:redirect_uri]
   end
 
   def get_authorize_url() do

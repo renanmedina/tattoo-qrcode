@@ -1,12 +1,17 @@
 defmodule Music.SpotifyClient do
   alias Music.SpotifyAuth.AccessTokenInfo
-  alias Music.SpotifyClient.RecentlyPlayedSong
+  alias Music.SpotifyClient.{RecentlyPlayedSong, Playlist}
 
   @api_url "https://api.spotify.com/v1/me"
 
   def get_recent_played_songs(access_token, limit \\ 20) do
     response = make_request("/player/recently-played", %{limit: limit}, access_token)
     response |> parse_response |> pluck_items |> Enum.map(&(RecentlyPlayedSong.from_map(&1)))
+  end
+
+  def get_playlists(access_token, limit \\ 20) do
+    response = make_request("/playlists", %{limit: limit}, access_token)
+    response |> parse_response |> pluck_items |> Enum.map(&(Playlist.from_map(&1)))
   end
 
   defp pluck_items(response), do: response["items"]
@@ -49,7 +54,7 @@ defmodule Music.SpotifyAuth do
 
   @authorization_url "https://accounts.spotify.com/authorize?"
   @token_url "https://accounts.spotify.com/api/token"
-  @scopes "user-read-private user-read-email user-top-read user-library-read user-read-recently-played"
+  @scopes "user-read-private user-read-email user-top-read playlist-read-private user-library-read user-read-recently-played"
 
   defp config_value(key) do
     config = Application.fetch_env!(:qrcode_router_service, :spotify_client)

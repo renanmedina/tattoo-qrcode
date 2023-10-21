@@ -55,23 +55,34 @@ defmodule Music.SpotifyAuth do
     end
   end
 
-  @config Application.get_env(:qrcode_router_service, :spotify_client)
-  @client_id @config[:client_id]
-  @client_secret @config[:client_secret]
-
   @authorization_url "https://accounts.spotify.com/authorize?"
   @token_url "https://accounts.spotify.com/api/token"
   @scopes "user-read-private user-read-email user-top-read user-library-read user-read-recently-played"
-  @redirect_uri @config[:redirect_uri]
+
+  defp config() do
+    Application.fetch_env!(:qrcode_router_service, :spotify_client)
+  end
+
+  defp client_id() do
+    config[:client_id]
+  end
+
+  defp client_secret() do
+    config[:client_secret]
+  end
+
+  defp redirect_uri() do
+    config[:redirect_uri]
+  end
 
   def get_authorize_url() do
     state = "tattoo-qrcode-spotify-session"
     scope = URI.encode(@scopes)
-    "#{@authorization_url}client_id=#{@client_id}&scope=#{scope}&redirect_uri=#{@redirect_uri}&response_type=code&state=#{state}"
+    "#{@authorization_url}client_id=#{client_id()}&scope=#{scope}&redirect_uri=#{redirect_uri()}&response_type=code&state=#{state}"
   end
 
   defp get_client_auth_password() do
-    Base.encode64("#{@client_id}:#{@client_secret}")
+    Base.encode64("#{client_id()}:#{client_secret()}")
   end
 
   def get_access_token(auth_code) do
@@ -93,8 +104,4 @@ defmodule Music.SpotifyAuth do
   end
 
   defp parse_response(_), do: :error
-
-  def refresh_access_token() do
-
-  end
 end

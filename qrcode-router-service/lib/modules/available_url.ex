@@ -15,6 +15,13 @@ defmodule Application.Entity.AvailableUrl do
     timestamps()
   end
 
+  def get_all(), do: Repo.all(AvailableUrl)
+
+  def get_all(%{service_kind: service_kind}) do
+    from(u in AvailableUrl, where: u.service_kind == ^service_kind)
+      |> Repo.all()
+  end
+
   def all_enabled_by(kind) do
     from(u in AvailableUrl, where: u.kind == ^kind and u.enabled == true)
       |> Repo.all()
@@ -34,7 +41,7 @@ defmodule Application.Entity.AvailableUrl do
 
   def create_if_missing_by(%{url: url, kind: kind, service_kind: service_kind}) do
     case get_by(kind, url) do
-      url_item when url_item == nil -> Repo.insert(%AvailableUrl{kind: kind, url: url, service_kind: service_kind})
+      url_item when url_item == nil -> Repo.insert(%AvailableUrl{kind: kind, url: url, service_kind: service_kind, enabled: true})
       _ -> nil # ignore when url already exists for kind
     end
   end

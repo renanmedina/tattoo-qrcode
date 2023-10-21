@@ -80,3 +80,10 @@ config :phoenix_live_view, :debug_heex_annotations, true
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+# set spotify client configs
+config :qrcode_router_service, :spotify_client, %{
+  client_id: System.get_env("SPOTIFY_CLIENT_ID"),
+  client_secret: System.get_env("SPOTIFY_CLIENT_SECRET"),
+  redirect_uri: System.get_env("SPOTIFY_OAUTH_REDIRECT_URI") || "http://localhost:4000/oauth/callback/spotify"
+}

@@ -19,6 +19,8 @@ defmodule QrcodeRouterServiceWeb.Router do
 
     get "/", ServiceRoutingController, :index
     get "/:service_kind", ServiceRoutingController, :show
+
+    get "/oauth/callback/:service_name", OAuth.CallbackController, :index
   end
 
   # Other scopes may use custom stacks.

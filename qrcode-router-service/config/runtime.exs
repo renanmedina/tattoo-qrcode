@@ -114,4 +114,12 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+
+  # set spotify client configs
+  config :qrcode_router_service, :spotify_client, %{
+    client_id: System.get_env("SPOTIFY_CLIENT_ID"),
+    client_secret: System.get_env("SPOTIFY_CLIENT_SECRET"),
+    redirect_uri: System.get_env("SPOTIFY_OAUTH_REDIRECT_URI") || "http://localhost:4000/oauth/callback/spotify"
+  }
 end

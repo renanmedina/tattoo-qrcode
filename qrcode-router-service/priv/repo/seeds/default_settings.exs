@@ -1,7 +1,7 @@
 alias QrcodeRouterService.Repo
 
 settings_seed = [
-  %ServicePicker.Entity.SettingItem{
+  %Application.Entity.SettingItem{
     setting_key: "service_picker_algorithm",
     setting_value: "random"
   }

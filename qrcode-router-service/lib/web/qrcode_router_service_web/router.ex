@@ -27,6 +27,10 @@ defmodule QrcodeRouterServiceWeb.Router do
     pipe_through :api
 
     get "/available_urls", AvailableUrlsController, :index
+
+    get "/available_services", AvailableServicesController, :index
+    post "/available_services", AvailableServicesController, :create
+    put "available_services/:kind/toggle_active", AvailableServicesController, :toggle_active
   end
 
   # Other scopes may use custom stacks.

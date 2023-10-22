@@ -12,7 +12,7 @@ defmodule QrcodeRouterServiceWeb.Management.AvailableUrlsController do
   end
 end
 
-## Handles ServiceRoutingJson response type
+## Handles AvailableUrlsJSON response type
 defmodule QrcodeRouterServiceWeb.Management.AvailableUrlsJSON do
   def index(%{urls: urls}) do
     urls

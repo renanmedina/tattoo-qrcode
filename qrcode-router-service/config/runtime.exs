@@ -20,6 +20,8 @@ if System.get_env("PHX_SERVER") do
   config :qrcode_router_service, QrcodeRouterServiceWeb.Endpoint, server: true
 end
 
+config :qrcode_router_service, :env, config_env()
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

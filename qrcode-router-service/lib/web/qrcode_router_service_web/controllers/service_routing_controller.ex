@@ -12,7 +12,7 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
           [service, should_display] when should_display in ["1", 1] -> render(conn, :index, service: service)
           [service, _] -> redirect(conn, external: service.url)
         end
-      false -> render(conn, :index, %{})
+      false -> render(conn, :index, %{empty: true})
     end
   end
 
@@ -52,7 +52,7 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingJSON do
       enabled: service_item.enabled
     }
   end
-  def index(%{}), do: %{}
+  def index(%{empty: true}), do: %{}
 
   def show(%{status: status, message: msg}) do
     %{

@@ -1,5 +1,5 @@
 defmodule Music.SpotifyClient do
-  alias Music.SpotifyAuth.AccessTokenInfo
+  alias Music.SpotifyAuth.AccessToken
   alias Music.SpotifyClient.{RecentlyPlayedSong, Playlist}
 
   @api_url "https://api.spotify.com/v1/me"
@@ -38,24 +38,7 @@ defmodule Music.SpotifyClient do
 end
 
 defmodule Music.SpotifyAuth do
-  defmodule AccessTokenInfo do
-    @enforce_keys [:access_token, :expires_in, :refresh_token, :token_type]
-    defstruct [:access_token, :expires_in, :refresh_token, :token_type]
-
-    def from_map(%{
-      "access_token" => token,
-      "expires_in" => expire,
-      "refresh_token" => refresh_token,
-      "token_type" => type
-    }) do
-      %AccessTokenInfo{
-        access_token: token,
-        expires_in: expire,
-        refresh_token: refresh_token,
-        token_type: type
-      }
-    end
-  end
+  alias Music.SpotifyAuth.AccessToken
 
   @authorization_url "https://accounts.spotify.com/authorize?"
   @token_url "https://accounts.spotify.com/api/token"

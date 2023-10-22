@@ -5,7 +5,7 @@ defmodule Music.Importing do
   alias Application.Entity.AvailableUrl
   alias Music.SpotifyClient
   alias Music.SpotifyAuth
-  alias Music.SpotifyAuth.AccessTokenInfo
+  alias Music.SpotifyAuth.AccessToken
 
   def import_new_played_songs() do
     {access_token, refresh_token} = get_saved_token()
@@ -50,7 +50,7 @@ defmodule Music.Importing do
 
   defp get_saved_token() do
     token_data = SettingItem.get_spotify_token()
-    saved_token = token_data |> AccessTokenInfo.from_map
+    saved_token = token_data |> AccessToken.from_map
     debug_log("importing recent played songs from spotify with access_token #{saved_token.access_token}")
     {saved_token.access_token, saved_token.refresh_token}
   end

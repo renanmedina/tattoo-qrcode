@@ -87,3 +87,5 @@ config :qrcode_router_service, :spotify_client, %{
   client_secret: System.get_env("SPOTIFY_CLIENT_SECRET"),
   redirect_uri: System.get_env("SPOTIFY_OAUTH_REDIRECT_URI") || "http://localhost:4000/oauth/callback/spotify"
 }
+
+config :qrcode_router_service, :tattoo_session_id, System.get_env("TATTOO_SESSION_ID")

@@ -3,13 +3,16 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
   alias ServicePicker.Entity.AvailableService
 
   def index(conn, params) do
-    destination_service = AvailableService.get_enableds
-      |> ServicePicker.pick_service!()
-
-    case [destination_service, params["display"]] do
-      [service, _] when service == nil -> render(conn, :index, service: service)
-      [service, should_display] when should_display in ["1", 1] -> render(conn, :index, service: service)
-      [service, _] -> redirect(conn, external: service.url)
+    case is_tattoo_session_id?(params["session_id"]) do
+      true ->
+        destination_service = AvailableService.get_enableds
+          |> ServicePicker.pick_service!()
+        case [destination_service, params["display"]] do
+          [service, _] when service == nil -> render(conn, :index, service: service)
+          [service, should_display] when should_display in ["1", 1] -> render(conn, :index, service: service)
+          [service, _] -> redirect(conn, external: service.url)
+        end
+      false -> render(conn, :index, %{})
     end
   end
 
@@ -25,13 +28,23 @@ defmodule QrcodeRouterServiceWeb.ServiceRoutingController do
     end
   end
 
-  defp get_redirect_url("music_and_playlists"), do:  MusicChooser.pick_one_url!
+  defp get_redirect_url("music_and_playlists"), do: MusicChooser.pick_one_url!
+  defp get_redirect_url(_), do: raise "Service not implemented yet"
+
+  defp is_tattoo_session_id?(id) do
+    case Application.get_env(:qrcode_router_service, :env) do
+      :prod ->
+        tattoo_id = Application.fetch_env!(:qrcode_router_service, :tattoo_session_id)
+        tattoo_id == id
+      _ -> true
+    end
+  end
 end
 
 ## Handles ServiceRoutingJson response type
 defmodule QrcodeRouterServiceWeb.ServiceRoutingJSON do
+  def index(%{}), do: %{}
   def index(%{service: nil}), do: %{ result: "Nenhum serviço disponível", status: 404 }
-
   def index(%{service: service_item}) do
     %{
       kind: service_item.kind,

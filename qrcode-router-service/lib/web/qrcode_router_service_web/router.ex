@@ -30,7 +30,7 @@ defmodule QrcodeRouterServiceWeb.Router do
 
     get "/available_services", AvailableServicesController, :index
     post "/available_services", AvailableServicesController, :create
-    put "available_services/:kind/toggle_active", AvailableServicesController, :toggle_active
+    put "/available_services/:kind/toggle_active", AvailableServicesController, :toggle_active
   end
 
   # Other scopes may use custom stacks.

@@ -15,7 +15,7 @@ defmodule QrcodeRouterServiceWeb.Management.AvailableServicesController do
   def create(conn, params) do
     try do
       case {params["kind"], params["name"], params["url"], params["is_enabled"]} do
-        {kind, url, name, is_enabled} when kind != nil and url != nil and name != nil ->
+        {kind, name, url, is_enabled} when kind != nil and url != nil and name != nil ->
           {:ok, new_service} = AvailableService.create(kind, url, name, is_enabled)
           render(conn, :show, %{service_item: new_service})
         _ ->

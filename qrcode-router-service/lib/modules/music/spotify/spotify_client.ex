@@ -81,7 +81,9 @@ defmodule Music.SpotifyAuth do
   def refresh_token(token) do
     request_params = %{"refresh_token" => token, "grant_type" => "refresh_token"} |> URI.encode_query
     response = HTTPoison.post(@token_url, request_params, build_headers())
-    response |> parse_response
+    new_token_response = response |> parse_response
+    ## keep refresh_token since spotify does not provide a new one
+    Map.put(new_token_response, "refresh_token", token)
   end
 
   defp build_headers() do

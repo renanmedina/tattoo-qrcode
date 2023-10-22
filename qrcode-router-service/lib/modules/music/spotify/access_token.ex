@@ -1,4 +1,6 @@
 defmodule Music.SpotifyAuth.AccessToken do
+  alias Music.SpotifyAuth.AccessToken
+
   @enforce_keys [:access_token, :expires_in, :refresh_token, :token_type]
   defstruct [:access_token, :expires_in, :refresh_token, :token_type]
 
